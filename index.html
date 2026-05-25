@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juliene Amarille | Virtual Assistant Who Actually Gets It Done</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --ink: #0D0D0D;
+            --cream: #FAF7F2;
+            --gold: #C9A84C;
+            --gold-light: #F0D890;
+            --gold-dark: #9A7A2E;
+            --sage: #3D5A47;
+            --sage-light: #EEF3EF;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+            --border: rgba(201,168,76,0.25);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1), transform 0.75s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(13,13,13,0.97);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201,168,76,0.15);
+        }
+        nav.scrolled {
+            background: rgba(13,13,13,0.97);
+            border-color: rgba(201,168,76,0.2);
+        }
+
+        nav .inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 1.3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        .logo span { color: var(--gold); }
+
+        .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+
+        .nav-dl {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-dl:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+            background: rgba(201,168,76,0.08);
+            transform: translateY(-1px);
+        }
+        .nav-dl svg { width: 13px; height: 13px; }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--ink);
+            padding: 0.65rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+        .nav-cta:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201,168,76,0.4);
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--ink);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, rgba(201,168,76,0.18), transparent 70%);
+            top: -120px; left: -80px;
+            animation: orbFloat 16s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(61,90,71,0.28), transparent 70%);
+            bottom: -100px; right: 8%;
+            animation: orbFloat 20s ease-in-out infinite;
+            animation-delay: -7s;
+        }
+        .orb-3 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(201,168,76,0.09), transparent 70%);
+            top: 45%; right: 22%;
+            animation: orbFloat 12s ease-in-out infinite;
+            animation-delay: -3s;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(45px, -35px) scale(1.04); }
+            66%  { transform: translate(-30px, 28px) scale(0.97); }
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 25s linear infinite;
+        }
+        @keyframes gridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 60px 60px; }
+        }
+
+        .hero .inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 9rem 2rem 6rem;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.3);
+            color: var(--gold-light);
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.9s cubic-bezier(.22,1,.36,1) both;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: liveGlow 2s infinite;
+        }
+        @keyframes liveGlow {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(201,168,76,0.6); }
+            50% { opacity: 0.6; transform: scale(1.35); box-shadow: 0 0 0 7px rgba(201,168,76,0); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: white;
+            margin-bottom: 2rem;
+            max-width: 870px;
+            animation: fadeUp 0.9s cubic-bezier(.22,1,.36,1) 0.15s both;
+        }
+        .hero h1 em { font-style: italic; color: var(--gold); }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.58);
+            max-width: 580px;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            animation: fadeUp 0.9s cubic-bezier(.22,1,.36,1) 0.28s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 4.5rem;
+            animation: fadeUp 0.9s cubic-bezier(.22,1,.36,1) 0.4s both;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--ink);
+            padding: 1rem 2.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.35s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform 0.55s;
+        }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,168,76,0.42); }
+        .btn-gold:hover::after { transform: translateX(120%); }
+
+        .btn-outline-light {
+            background: transparent;
+            color: rgba(255,255,255,0.82);
+            padding: 1rem 2.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 1.5px solid rgba(255,255,255,0.22);
+        }
+        .btn-outline-light:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        .hero-stats {
+            display: flex;
+            gap: 4.5rem;
+            flex-wrap: wrap;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            animation: fadeUp 0.9s cubic-bezier(.22,1,.36,1) 0.52s both;
+            justify-content: center;
+        }
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            animation: fadeUp 1s 1.2s both, scrollBob 2.5s 2.2s ease-in-out infinite;
+        }
+        .scroll-hint::after {
+            content: '';
+            width: 1px; height: 44px;
+            background: linear-gradient(to bottom, rgba(201,168,76,0.55), transparent);
+        }
+        @keyframes scrollBob {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ─── DOWNLOAD STRIP ─── */
+        .download-strip {
+            background: var(--sage);
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .download-strip::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(201,168,76,0.07) 0%, transparent 55%);
+        }
+        .download-strip .inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .download-strip p { color: rgba(255,255,255,0.85); font-size: 0.95rem; }
+        .download-strip p strong { color: white; }
+        .download-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .btn-download {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.65rem 1.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.18);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-download:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201,168,76,0.3);
+        }
+        .btn-download svg { width: 14px; height: 14px; }
+
+        /* ─── SECTION COMMONS ─── */
+        .section { padding: 7rem 2rem; }
+        .section-inner { max-width: 1180px; margin: 0 auto; }
+        .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 1rem; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; color: var(--ink); margin-bottom: 1.25rem; text-align: center; }
+        .section-title em { font-style: italic; color: var(--gold-dark); }
+        .section-sub { font-size: 1.05rem; color: var(--gray); max-width: 560px; line-height: 1.75; text-align: center; margin-left: auto; margin-right: auto; }
+
+        /* ─── VALUE ─── */
+        .value-section { background: white; }
+        .value-header { margin-bottom: 4rem; }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5px;
+            background: var(--border);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            transition: background 0.35s, transform 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .value-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s cubic-bezier(.22,1,.36,1);
+        }
+        .value-card:hover { background: #FFFEF8; }
+        .value-card:hover::after { transform: scaleX(1); }
+
+        .value-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 0.3rem; }
+        .value-icon-box { width: 44px; height: 44px; background: var(--sage-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; transition: transform 0.35s cubic-bezier(.22,1,.36,1); }
+        .value-card:hover .value-icon-box { transform: scale(1.12) rotate(-5deg); }
+        .value-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.7rem; color: var(--ink); }
+        .value-card p { font-size: 0.92rem; color: var(--gray); line-height: 1.7; }
+
+        /* ─── SERVICES ─── */
+        .services-section { background: var(--cream); }
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 4rem; }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1.5px solid rgba(0,0,0,0.07);
+            transition: all 0.45s cubic-bezier(.22,1,.36,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s cubic-bezier(.22,1,.36,1);
+        }
+        .service-card:hover { border-color: var(--border); box-shadow: 0 18px 55px rgba(0,0,0,0.1); transform: translateY(-7px); }
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-card.featured { background: var(--ink); border-color: var(--ink); }
+        .service-card.featured::before { background: var(--gold); transform: scaleX(1); }
+        .service-card.featured h3,
+        .service-card.featured .service-price { color: white; }
+        .service-card.featured .service-description { color: rgba(255,255,255,0.52); border-color: rgba(255,255,255,0.1) !important; }
+        .service-card.featured .service-includes li { color: rgba(255,255,255,0.82); }
+        .service-card.featured .check { color: var(--gold) !important; }
+
+        .featured-tag { display: inline-block; background: var(--gold); color: var(--ink); font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 4px; margin-bottom: 1.2rem; }
+        .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--ink); margin-bottom: 0.4rem; }
+        .service-price { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 900; color: var(--gold-dark); margin-bottom: 1.4rem; }
+        .service-price small { font-size: 1rem; font-weight: 400; color: var(--gray); font-family: 'DM Sans', sans-serif; }
+        .service-description { color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.65; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.07); }
+        .service-includes { list-style: none; }
+        .service-includes li { padding: 0.5rem 0; padding-left: 1.6rem; position: relative; color: var(--ink); font-size: 0.9rem; }
+        .service-includes li .check { position: absolute; left: 0; color: var(--sage); font-weight: 700; }
+
+        .perks-bar { margin-top: 2.5rem; padding: 1.5rem 2rem; background: var(--sage-light); border-radius: 10px; border: 1px solid rgba(61,90,71,0.15); display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+        .perks-bar strong { font-size: 0.8rem; color: var(--sage); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
+        .perks-list { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .perk { font-size: 0.875rem; color: var(--sage); display: flex; align-items: center; gap: 0.4rem; }
+        .perk::before { content: '✓'; font-weight: 700; }
+
+        /* ─── CONTACT ─── */
+        .contact-section { background: var(--ink); padding: 8rem 2rem; position: relative; overflow: hidden; }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            width: 900px; height: 900px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,168,76,0.07), transparent 60%);
+            top: -300px; right: -200px;
+            animation: orbFloat 18s ease-in-out infinite;
+        }
+        .contact-section::after {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(61,90,71,0.14), transparent 60%);
+            bottom: -200px; left: -100px;
+            animation: orbFloat 22s ease-in-out infinite reverse;
+        }
+
+        .contact-inner { max-width: 760px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+        .contact-badge { display: inline-block; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.28); color: var(--gold-light); padding: 0.5rem 1.2rem; border-radius: 4px; font-size: 0.74rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 2rem; }
+        .contact-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+        .contact-section h2 em { font-style: italic; color: var(--gold); }
+        .contact-inner > p { color: rgba(255,255,255,0.52); font-size: 1.1rem; line-height: 1.75; margin-bottom: 3rem; }
+
+        .contact-cards { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+        .contact-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 1.1rem 1.6rem; display: flex; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.78); font-size: 0.95rem; text-decoration: none; transition: all 0.3s; }
+        .contact-card:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.35); color: var(--gold-light); transform: translateY(-2px); }
+
+        .contact-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-gold-lg {
+            background: var(--gold);
+            color: var(--ink);
+            padding: 1.1rem 2.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.35s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold-lg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform 0.55s;
+        }
+        .btn-gold-lg:hover { background: var(--gold-light); box-shadow: 0 12px 36px rgba(201,168,76,0.38); transform: translateY(-3px); }
+        .btn-gold-lg:hover::after { transform: translateX(120%); }
+
+        .btn-ghost { background: transparent; color: rgba(255,255,255,0.65); padding: 1.1rem 2.2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all 0.3s; border: 1.5px solid rgba(255,255,255,0.18); display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        /* ─── FOOTER ─── */
+        footer { background: #060606; padding: 2rem; text-align: center; }
+        footer p { color: rgba(255,255,255,0.28); font-size: 0.83rem; }
+        footer span { color: var(--gold); }
+
+        /* ─── GLOBAL ANIMATED BG CANVAS ─── */
+        #bgCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Ensure all sections sit above the canvas */
+        nav, .hero, .download-strip, .value-section,
+        .services-section, .assessment-section,
+        .contact-section, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Make light sections translucent so the canvas glows through strongly */
+        .value-section      { background: rgba(255,255,255,0.72); }
+        .services-section   { background: rgba(250,247,242,0.72); }
+        .assessment-section { background: rgba(255,255,255,0.72); }
+        .download-strip     { background: rgba(61,90,71,0.88); }
+        .contact-section    { background: rgba(13,13,13,0.82); }
+        footer              { background: rgba(6,6,6,0.94); }
+
+        /* ─── FLOATING TOOLS IN HERO ─── */
+        .hero-tools {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-tools span {
+            position: absolute;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(201,168,76,0.18);
+            white-space: nowrap;
+            animation: toolFloat linear infinite;
+            transform: translateY(0px);
+        }
+        @keyframes toolFloat {
+            0%   { transform: translateY(0px) rotate(-1deg); opacity: 0.5; }
+            25%  { transform: translateY(-14px) rotate(1deg); opacity: 1; }
+            50%  { transform: translateY(-6px) rotate(-0.5deg); opacity: 0.6; }
+            75%  { transform: translateY(-18px) rotate(1.5deg); opacity: 0.9; }
+            100% { transform: translateY(0px) rotate(-1deg); opacity: 0.5; }
+        }
+
+        /* ─── KEYFRAMES ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── OFFERING CARDS — 3 COLUMN LAYOUT ─── */
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+            align-items: stretch;
+        }
+
+        .offering-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: box-shadow 0.4s, transform 0.4s;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--gold);
+            height: 100%;
+        }
+        .offering-card:hover {
+            box-shadow: 0 24px 70px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+        .offering-card.offering-dark { border-top-color: var(--gold); }
+
+        /* Header panel — same height across all cards */
+        .offering-left {
+            padding: 2rem 1.75rem 1.5rem;
+            background: linear-gradient(160deg, #1a1a1a 0%, #2d2208 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            flex-shrink: 0;
+        }
+        .offering-dark .offering-left {
+            background: linear-gradient(160deg, #0f2318 0%, #1c3828 100%);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        /* Accordion panel grows to fill remaining space */
+        .offering-right {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+            background: #FFFBF0;
+        }
+        .offering-dark .offering-right {
+            background: #111f17;
+        }
+
+        .offering-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: rgba(201,168,76,0.2);
+            line-height: 1;
+            margin-bottom: -0.25rem;
+        }
+
+        .offering-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .offering-tagline {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(240,216,144,0.85);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .offering-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .offering-price small {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.4);
+            display: block;
+            margin-top: 0.2rem;
+        }
+        .offering-price-gold { color: var(--gold-light); }
+
+        .offering-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.58);
+            line-height: 1.65;
+        }
+        .offering-desc span { color: rgba(255,255,255,0.32) !important; }
+
+        .offering-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--gold);
+            color: var(--ink);
+            padding: 0.6rem 1.2rem;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            align-self: flex-start;
+            margin-top: 0.25rem;
+        }
+        .offering-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .offering-cta-gold { background: var(--gold); color: var(--ink); }
+        .offering-cta-gold:hover { background: var(--gold-light); }
+
+        /* Accordion task groups */
+        .task-group {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .task-group-light {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .task-group-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .task-group-label:hover { background: rgba(201,168,76,0.05); }
+        .offering-dark .task-group-label { color: var(--gold-light); }
+        .offering-dark .task-group-label:hover { background: rgba(255,255,255,0.04); }
+
+        .task-group-label .acc-arrow {
+            width: 14px; height: 14px;
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(.22,1,.36,1);
+            opacity: 0.5;
+        }
+        .task-group.open .acc-arrow { transform: rotate(180deg); opacity: 1; }
+
+        .task-group-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(.22,1,.36,1), padding 0.25s;
+            padding: 0 1rem;
+        }
+        .task-group.open .task-group-body {
+            max-height: 300px;
+            padding: 0 1rem 0.9rem;
+        }
+
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .task-group-light .task-list { border-color: rgba(255,255,255,0.08); }
+        .task-list li {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.5;
+            padding-left: 1.1rem;
+            position: relative;
+        }
+        .task-list li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.75rem;
+            top: 0px;
+        }
+        .offering-dark .task-list li { color: rgba(255,255,255,0.65); }
+        .offering-dark .task-list li::before { color: var(--gold-light); }
+
+        .tools-used {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            padding: 0.7rem 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .offering-dark .tools-used {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .tools-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .tool-tag {
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.22);
+            color: var(--gold-dark);
+            padding: 0.18rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+        .tools-used-light .tools-label { color: rgba(255,255,255,0.4); }
+        .tool-tag-light {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 960px) {
+            .offerings-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ─── PROCESS FLOW ─── */
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .process-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--ink);
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .process-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            padding-bottom: 0.25rem;
+        }
+        .process-text strong {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .process-text span {
+            font-size: 0.83rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        .process-connector {
+            width: 1px;
+            height: 22px;
+            background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.2));
+            margin-left: 15px;
+        }
+
+        /* ─── ASSESSMENT FORM ─── */
+        .assessment-section {
+            background: white;
+            padding: 7rem 2rem;
+        }
+
+        .assessment-wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .assessment-left { position: sticky; top: 100px; }
+
+        .assessment-left .section-label { margin-bottom: 1rem; }
+        .assessment-left .section-title { margin-bottom: 1.25rem; }
+        .assessment-left .section-sub { margin-bottom: 2rem; }
+
+        .form-perks { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+        .form-perk {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        .form-perk-icon {
+            width: 20px;
+            font-size: 1.1rem;
+            color: var(--gold-dark);
+            flex-shrink: 0;
+            margin-top: 1px;
+            text-align: center;
+        }
+
+        /* Multi-step form */
+        .form-card {
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1.5px solid var(--border);
+            overflow: hidden;
+        }
+
+        .form-progress {
+            background: var(--ink);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .progress-step {
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+            flex: 1;
+            transition: background 0.4s ease;
+        }
+        .progress-step.active { background: var(--gold); }
+        .progress-step.done { background: rgba(201,168,76,0.5); }
+
+        .progress-label {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .progress-label span { color: var(--gold-light); font-weight: 700; }
+
+        .form-body { padding: 2.5rem; }
+
+        .form-step { display: none; }
+        .form-step.active { display: block; animation: stepIn 0.4s cubic-bezier(.22,1,.36,1) both; }
+        @keyframes stepIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
+        }
+        .step-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .field-group { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
+
+        .field { display: flex; flex-direction: column; gap: 0.4rem; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: 0.3px;
+        }
+        label .req { color: var(--gold-dark); margin-left: 2px; }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1.5px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            color: var(--ink);
+            background: white;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+            appearance: none;
+        }
+        input::placeholder, textarea::placeholder { color: #B0B4BC; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+        textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+        /* Checkbox pills */
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .pill-label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        .pill-label input[type="checkbox"] { display: none; }
+        .pill {
+            padding: 0.5rem 1.1rem;
+            border-radius: 50px;
+            border: 1.5px solid rgba(0,0,0,0.12);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray);
+            background: white;
+            transition: all 0.2s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .pill-label input:checked + .pill {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+        }
+
+        /* Radio cards */
+        .radio-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .radio-card-label { cursor: pointer; }
+        .radio-card-label input[type="radio"] { display: none; }
+        .radio-card {
+            padding: 1rem 1.2rem;
+            border: 1.5px solid rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: white;
+            transition: all 0.25s;
+        }
+        .radio-card strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+        .radio-card span { font-size: 0.8rem; color: var(--gray); }
+        .radio-card-label input:checked + .radio-card {
+            border-color: var(--gold);
+            background: #FFFDF5;
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+        }
+        .radio-card-label input:checked + .radio-card strong { color: var(--gold-dark); }
+
+        /* Range slider */
+        .range-wrap { position: relative; padding-bottom: 1.5rem; }
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--gold) 0%, var(--gold) 50%, rgba(0,0,0,0.1) 50%);
+            outline: none;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(201,168,76,0.4);
+            transition: transform 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        .range-value {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+            background: rgba(201,168,76,0.1);
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        /* Form navigation */
+        .form-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.07);
+            margin-top: 0.5rem;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--gray);
+            border: 1.5px solid rgba(0,0,0,0.1);
+            padding: 0.8rem 1.6rem;
+            border-radius: 7px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+
+        .btn-next {
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 7px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-next::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform 0.5s;
+        }
+        .btn-next:hover { background: var(--gold); color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+        .btn-next:hover::after { transform: translateX(120%); }
+
+        .btn-submit {
+            background: var(--gold);
+            color: var(--ink);
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 7px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+
+        /* Success state */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 3.5rem 2rem;
+            animation: stepIn 0.5s cubic-bezier(.22,1,.36,1) both;
+        }
+        .success-icon {
+            width: 64px; height: 64px;
+            background: var(--sage-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+        }
+        .form-success h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+        .form-success p { font-size: 0.95rem; color: var(--gray); line-height: 1.7; max-width: 380px; margin: 0 auto; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .assessment-wrap { grid-template-columns: 1fr; gap: 3rem; }
+            .assessment-left { position: static; }
+            .radio-cards { grid-template-columns: 1fr; }
+            .value-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: 1fr; }
+            .nav-dl { display: none; }
+        }
+        @media (max-width: 600px) {
+            .value-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-actions { flex-direction: column; }
+            .hero-actions a { text-align: center; justify-content: center; }
+            .download-strip .inner { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            .scroll-hint { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ANIMATED BACKGROUND CANVAS -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- NAV -->
+    <nav id="mainNav">
+        <div class="inner">
+            <a href="#" class="logo">Juliene<span>.</span></a>
+            <div class="nav-right">
+                <a href="resume.pdf" target="_blank" class="nav-dl">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Resume
+                </a>
+                <a href="portfolio.pdf" target="_blank" class="nav-dl">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Portfolio
+                </a>
+                <a href="#assessment" class="nav-cta">Let's Talk →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="hero-grid"></div>
+
+        <div class="inner">
+            <h1>I Turn Your <em>Chaos</em><br>Into Systems That Scale</h1>
+            <p class="hero-sub">
+                Stop drowning in admin work. I handle the details, build the workflows, and free you to focus on what actually grows your business.
+            </p>
+            <div class="hero-actions">
+                <a href="#assessment" class="btn-gold">Work With Me →</a>
+                <a href="#value" class="btn-outline-light">See What I Do</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num" data-count="25" data-suffix="+">25+</div>
+                    <div class="stat-label">Tools mastered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" data-count="100" data-suffix="%">100%</div>
+                    <div class="stat-label">Remote & reliable</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">1 Week</div>
+                    <div class="stat-label">Free trial, no risk</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">GMT+8</div>
+                    <div class="stat-label">Philippines-based</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-hint">Scroll</div>
+
+        <!-- Floating tool words in hero background -->
+        <div class="hero-tools" aria-hidden="true">
+            <span style="top:12%;left:8%;animation-delay:0s;animation-duration:18s;">Notion</span>
+            <span style="top:20%;left:72%;animation-delay:-4s;animation-duration:22s;">Slack</span>
+            <span style="top:35%;left:18%;animation-delay:-7s;animation-duration:16s;">Canva</span>
+            <span style="top:55%;left:82%;animation-delay:-2s;animation-duration:20s;">Zapier</span>
+            <span style="top:70%;left:10%;animation-delay:-9s;animation-duration:24s;">ClickUp</span>
+            <span style="top:80%;left:60%;animation-delay:-5s;animation-duration:19s;">Asana</span>
+            <span style="top:25%;left:45%;animation-delay:-11s;animation-duration:21s;">HubSpot</span>
+            <span style="top:65%;left:38%;animation-delay:-3s;animation-duration:17s;">Airtable</span>
+            <span style="top:45%;left:90%;animation-delay:-8s;animation-duration:23s;">Trello</span>
+            <span style="top:88%;left:28%;animation-delay:-6s;animation-duration:15s;">Later</span>
+            <span style="top:10%;left:88%;animation-delay:-13s;animation-duration:26s;">Buffer</span>
+            <span style="top:48%;left:5%;animation-delay:-1s;animation-duration:19s;">Calendly</span>
+            <span style="top:75%;left:75%;animation-delay:-10s;animation-duration:22s;">Monday</span>
+            <span style="top:30%;left:60%;animation-delay:-14s;animation-duration:18s;">Dubsado</span>
+            <span style="top:92%;left:50%;animation-delay:-2s;animation-duration:21s;">Klaviyo</span>
+            <span style="top:58%;left:55%;animation-delay:-7s;animation-duration:25s;">CapCut</span>
+            <span style="top:40%;left:30%;animation-delay:-5s;animation-duration:20s;">Shopify</span>
+            <span style="top:18%;left:33%;animation-delay:-12s;animation-duration:16s;">Gmail</span>
+            <span style="top:83%;left:88%;animation-delay:-4s;animation-duration:28s;">Zoom</span>
+            <span style="top:5%;left:55%;animation-delay:-9s;animation-duration:17s;">Dropbox</span>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD STRIP -->
+    <div class="download-strip">
+        <div class="inner">
+            <p><strong>Want to see my background?</strong> View my resume or portfolio — no forms, no email required.</p>
+            <div class="download-btns">
+                <a href="resume.pdf" target="_blank" class="btn-download">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View Resume
+                </a>
+                <a href="portfolio.pdf" target="_blank" class="btn-download">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View Portfolio
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- VALUE -->
+    <section class="section value-section" id="value">
+        <div class="section-inner">
+            <div class="value-header">
+                <div class="section-label reveal">What I Do For You</div>
+                <h2 class="section-title reveal delay-1">Real Impact.<br><em>No Fluff.</em></h2>
+                <p class="section-sub reveal delay-2">Six ways I show up every day so your business doesn't fall behind.</p>
+            </div>
+            <div class="value-grid">
+                <div class="value-card reveal delay-1">
+                    <div class="value-num">01</div>
+                    <h3>Kill Admin Overload</h3>
+                    <p>I manage your calendar, inbox, and daily tasks so you stop losing 3 hours a day to things that don't move the needle.</p>
+                </div>
+                <div class="value-card reveal delay-2">
+                    <div class="value-num">02</div>
+                    <h3>Build Systems That Scale</h3>
+                    <p>SOPs, automated workflows, documented processes — your business runs smoothly even when you step away.</p>
+                </div>
+                <div class="value-card reveal delay-3">
+                    <div class="value-num">03</div>
+                    <h3>Turn Customers Into Fans</h3>
+                    <p>I handle support, manage your community, and keep clients coming back — one-time buyers become loyal advocates.</p>
+                </div>
+                <div class="value-card reveal delay-4">
+                    <div class="value-num">04</div>
+                    <h3>Get Projects Actually Done</h3>
+                    <p>Deadlines tracked, teams coordinated, nothing slipping through the cracks — I follow up so you don't have to.</p>
+                </div>
+                <div class="value-card reveal delay-5">
+                    <div class="value-num">05</div>
+                    <h3>Content That Converts</h3>
+                    <p>Social posts, emails, copy — I write, edit, and publish so you stay visible without burning out on creation.</p>
+                </div>
+                <div class="value-card reveal delay-6">
+                    <div class="value-num">06</div>
+                    <h3>Own Your Tech Stack</h3>
+                    <p>Shopify, Notion, Slack, Canva, Klaviyo — I know 25+ platforms and learn new ones fast. Your tools, mastered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section services-section" id="services">
+        <div class="section-inner">
+            <div class="section-label reveal">What I Offer</div>
+            <h2 class="section-title reveal delay-1">Three Ways I Can <em>Help You</em></h2>
+            <p class="section-sub reveal delay-2">Specialized support in exactly the areas your business needs. No generalist fluff — just focused, expert help.</p>
+
+            <div class="offerings-grid">
+
+            <!-- SERVICE 1: General VA -->
+            <div class="offering-card reveal">
+                <div class="offering-left">
+                    <div class="offering-num">01</div>
+                    <h3 class="offering-title">General Virtual Assistant</h3>
+                    <p class="offering-tagline">Your right hand for the tasks eating your time every day.</p>
+                    <div class="offering-price">from $600 <small>/ part-time · $1,200/mo full-time</small></div>
+                    <p class="offering-desc">I take over the daily grind — inbox, calendar, admin, research — so you can stay in your zone of genius.<br><span>$7.50/hr · 20 hrs/wk = ~$600/mo | 40 hrs/wk = ~$1,200/mo</span></p>
+                    <a href="#assessment" class="offering-cta">Get Started →</a>
+                </div>
+                <div class="offering-right">
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Inbox & Calendar
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Email sorting, drafting & routine replies</li>
+                                <li>Meeting scheduling across time zones</li>
+                                <li>Travel coordination & appointment setting</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Admin & Research
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>File management (Google Drive, Dropbox)</li>
+                                <li>Data entry, spreadsheets & report prep</li>
+                                <li>Internet research — leads, competitors, market data</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Communication
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Client follow-ups & vendor liaison</li>
+                                <li>Deck & document preparation</li>
+                                <li>Proofreading before anything goes out</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tools-used">
+                        <span class="tools-label">Tools:</span>
+                        <span class="tool-tag">Gmail</span>
+                        <span class="tool-tag">Google Workspace</span>
+                        <span class="tool-tag">Notion</span>
+                        <span class="tool-tag">Calendly</span>
+                        <span class="tool-tag">Slack</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERVICE 2: Operations VA -->
+            <div class="offering-card offering-dark reveal">
+                <div class="offering-left">
+                    <div class="offering-num">02</div>
+                    <h3 class="offering-title">Operations VA</h3>
+                    <p class="offering-tagline">Systems and workflows that make your business run without you.</p>
+                    <div class="offering-price offering-price-gold">from $680 <small>/ part-time · $1,360/mo full-time</small></div>
+                    <p class="offering-desc">I build the SOPs, automations, and project infrastructure that give your business real operational independence.<br><span>$8.50/hr · 20 hrs/wk = ~$680/mo | 40 hrs/wk = ~$1,360/mo</span></p>
+                    <a href="#assessment" class="offering-cta offering-cta-gold">Get Started →</a>
+                </div>
+                <div class="offering-right">
+                    <div class="task-group task-group-light open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Systems & Automation
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>SOP writing & process documentation</li>
+                                <li>Workflow automation via Zapier or Make</li>
+                                <li>Client & employee onboarding setup</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group task-group-light open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Project Management
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Project boards in ClickUp, Asana, or Monday</li>
+                                <li>Milestone tracking & team coordination</li>
+                                <li>Weekly status reports & executive summaries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group task-group-light open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Tech & CRM
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>CRM setup & pipeline maintenance (HubSpot, Dubsado)</li>
+                                <li>KPI dashboards in Notion or Airtable</li>
+                                <li>Tool audits & tech stack recommendations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tools-used tools-used-light">
+                        <span class="tools-label">Tools:</span>
+                        <span class="tool-tag tool-tag-light">ClickUp</span>
+                        <span class="tool-tag tool-tag-light">Asana</span>
+                        <span class="tool-tag tool-tag-light">Zapier</span>
+                        <span class="tool-tag tool-tag-light">Notion</span>
+                        <span class="tool-tag tool-tag-light">HubSpot</span>
+                        <span class="tool-tag tool-tag-light">Airtable</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERVICE 3: Social Media Management -->
+            <div class="offering-card reveal">
+                <div class="offering-left">
+                    <div class="offering-num">03</div>
+                    <h3 class="offering-title">Social Media Management</h3>
+                    <p class="offering-tagline">Consistent, on-brand content — without you doing any of it.</p>
+                    <div class="offering-price">from $640 <small>/ part-time · $1,280/mo full-time</small></div>
+                    <p class="offering-desc">I handle the full content pipeline — planning, design, captions, scheduling, and community engagement.<br><span>$8/hr · 20 hrs/wk = ~$640/mo | 40 hrs/wk = ~$1,280/mo</span></p>
+                    <a href="#assessment" class="offering-cta">Get Started →</a>
+                </div>
+                <div class="offering-right">
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Content Creation
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Monthly content calendar planning</li>
+                                <li>Canva graphics — posts, stories, carousels, reels covers</li>
+                                <li>Caption writing with hooks, CTAs & hashtags</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Scheduling & Publishing
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Scheduled posting via Buffer, Later, or Meta Suite</li>
+                                <li>Cross-platform repurposing (IG, Facebook, LinkedIn, TikTok)</li>
+                                <li>Short-form video editing (Reels, TikTok, Shorts)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="task-group open">
+                        <div class="task-group-label" onclick="toggleAccordion(this)">
+                            Engagement & Analytics
+                            <svg class="acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="task-group-body">
+                            <ul class="task-list">
+                                <li>Comment & DM management</li>
+                                <li>Monthly performance reports</li>
+                                <li>Trend & competitor monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tools-used">
+                        <span class="tools-label">Tools:</span>
+                        <span class="tool-tag">Canva</span>
+                        <span class="tool-tag">Later</span>
+                        <span class="tool-tag">Buffer</span>
+                        <span class="tool-tag">Meta Suite</span>
+                        <span class="tool-tag">CapCut</span>
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- /offerings-grid -->
+            <div class="perks-bar reveal">
+                <strong>Every Service:</strong>
+                <div class="perks-list">
+                    <span class="perk">Free 1-week trial</span>
+                    <span class="perk">No setup fees</span>
+                    <span class="perk">Flexible contracts</span>
+                    <span class="perk">Direct communication</span>
+                    <span class="perk">Custom scope available</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT FORM -->
+    <section class="assessment-section" id="assessment">
+        <div class="assessment-wrap">
+
+            <!-- Left: context -->
+            <div class="assessment-left">
+                <div class="section-label reveal">Work With Me</div>
+                <h2 class="section-title reveal delay-1" style="text-align:left;">Let's See If We're a <em>Good Fit</em></h2>
+                <p class="section-sub reveal delay-2" style="text-align:left; margin:0 0 2rem;">Takes 3 minutes. No commitment. I'll review your answers and follow up within 24 hours.</p>
+
+                <!-- Process flow -->
+                <div class="process-flow reveal delay-3">
+                    <div class="process-step">
+                        <div class="process-num">1</div>
+                        <div class="process-text">
+                            <strong>Fill out this form</strong>
+                            <span>Tell me about your business, your challenges, and what kind of support you need.</span>
+                        </div>
+                    </div>
+                    <div class="process-connector"></div>
+                    <div class="process-step">
+                        <div class="process-num">2</div>
+                        <div class="process-text">
+                            <strong>I review your answers</strong>
+                            <span>I personally go through every submission and reach out within 24 hours.</span>
+                        </div>
+                    </div>
+                    <div class="process-connector"></div>
+                    <div class="process-step">
+                        <div class="process-num">3</div>
+                        <div class="process-text">
+                            <strong>We book a discovery call</strong>
+                            <span>A free 30-minute call to map out exactly how I can help — no pressure, no commitment.</span>
+                        </div>
+                    </div>
+                    <div class="process-connector"></div>
+                    <div class="process-step">
+                        <div class="process-num">4</div>
+                        <div class="process-text">
+                            <strong>Your free trial week begins</strong>
+                            <span>If we're a great fit, we can get started within 48 hours of our call.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: multi-step form -->
+            <div class="form-card reveal delay-2">
+
+                <div class="form-progress">
+                    <div class="progress-steps">
+                        <div class="progress-step active" id="ps1"></div>
+                        <div class="progress-step" id="ps2"></div>
+                        <div class="progress-step" id="ps3"></div>
+                        <div class="progress-step" id="ps4"></div>
+                    </div>
+                    <div class="progress-label">Step <span id="stepNum">1</span> of 4</div>
+                </div>
+
+                <div class="form-body">
+
+                    <!-- Step 1: About You -->
+                    <div class="form-step active" id="step1">
+                        <div class="step-title">About You</div>
+                        <div class="step-subtitle">Let's start with the basics so I know who I'm talking to.</div>
+                        <div class="field-group">
+                            <div class="field-row">
+                                <div class="field">
+                                    <label>First Name <span class="req">*</span></label>
+                                    <input type="text" id="firstName" placeholder="Jane" />
+                                </div>
+                                <div class="field">
+                                    <label>Last Name <span class="req">*</span></label>
+                                    <input type="text" id="lastName" placeholder="Smith" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Email Address <span class="req">*</span></label>
+                                <input type="email" id="email" placeholder="jane@yourbusiness.com" />
+                            </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label>Business / Brand Name</label>
+                                    <input type="text" id="bizName" placeholder="Acme Co." />
+                                </div>
+                                <div class="field">
+                                    <label>Industry</label>
+                                    <select id="industry">
+                                        <option value="">Select one…</option>
+                                        <option>E-Commerce / Retail</option>
+                                        <option>Coaching / Consulting</option>
+                                        <option>Agency / Creative</option>
+                                        <option>SaaS / Tech</option>
+                                        <option>Real Estate</option>
+                                        <option>Health & Wellness</option>
+                                        <option>Finance / Legal</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Website or Social Link <span style="color:var(--gray);font-weight:400;">(optional)</span></label>
+                                <input type="url" id="website" placeholder="https://yourbusiness.com" />
+                            </div>
+                        </div>
+                        <div class="form-nav">
+                            <span></span>
+                            <button class="btn-next" onclick="nextStep(1)">Next: Your Business →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Business Situation -->
+                    <div class="form-step" id="step2">
+                        <div class="step-title">Your Business Right Now</div>
+                        <div class="step-subtitle">Help me understand where you are and what's slowing you down.</div>
+                        <div class="field-group">
+                            <div class="field">
+                                <label>How big is your team?</label>
+                                <div class="radio-cards">
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="teamSize" value="solo" />
+                                        <div class="radio-card">
+                                            <strong>Solo founder</strong>
+                                            <span>Just me handling everything</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="teamSize" value="small" />
+                                        <div class="radio-card">
+                                            <strong>2–5 people</strong>
+                                            <span>Small but growing team</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="teamSize" value="medium" />
+                                        <div class="radio-card">
+                                            <strong>6–15 people</strong>
+                                            <span>Mid-size, needs coordination</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="teamSize" value="large" />
+                                        <div class="radio-card">
+                                            <strong>16+ people</strong>
+                                            <span>Established, complex ops</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>What's your biggest pain point right now? <span class="req">*</span></label>
+                                <div class="pill-group">
+                                    <label class="pill-label"><input type="checkbox" value="inbox"><span class="pill">📥 Inbox chaos</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="calendar"><span class="pill">📅 Scheduling</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="projects"><span class="pill">📋 Project tracking</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="content"><span class="pill">✍️ Content creation</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="customers"><span class="pill">💬 Customer support</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="ecommerce"><span class="pill">🛒 E-commerce ops</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="systems"><span class="pill">⚙️ No systems/SOPs</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="team"><span class="pill">👥 Team coordination</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="social"><span class="pill">📱 Social media</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="other"><span class="pill">+ Other</span></label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>How many hours per week are you losing to tasks you shouldn't be doing?</label>
+                                <div class="range-wrap">
+                                    <input type="range" id="hoursLost" min="2" max="30" value="10" step="2"
+                                        oninput="updateRange(this, 'hoursVal', v => v + ' hrs/week')" />
+                                    <div class="range-labels"><span>2 hrs</span><span>30 hrs</span></div>
+                                    <div class="range-value" id="hoursVal">10 hrs/week</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-nav">
+                            <button class="btn-back" onclick="prevStep(2)">← Back</button>
+                            <button class="btn-next" onclick="nextStep(2)">Next: Your Needs →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: What You Need -->
+                    <div class="form-step" id="step3">
+                        <div class="step-title">What You're Looking For</div>
+                        <div class="step-subtitle">Tell me about the kind of support and arrangement that works for you.</div>
+                        <div class="field-group">
+                            <div class="field">
+                                <label>What package are you most interested in?</label>
+                                <select id="package">
+                                    <option value="">Not sure yet…</option>
+                                    <option>General VA — day-to-day admin & operations</option>
+                                    <option>Operations VA — systems, workflows & project management</option>
+                                    <option>Social Media Management — content, scheduling & community</option>
+                                    <option>Combination of two or more services</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>How soon do you need support?</label>
+                                <div class="radio-cards">
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="timeline" value="asap" />
+                                        <div class="radio-card">
+                                            <strong>ASAP</strong>
+                                            <span>I needed help yesterday</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="timeline" value="2weeks" />
+                                        <div class="radio-card">
+                                            <strong>Within 2 weeks</strong>
+                                            <span>Getting ready to onboard</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="timeline" value="1month" />
+                                        <div class="radio-card">
+                                            <strong>Next month</strong>
+                                            <span>Planning ahead</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card-label">
+                                        <input type="radio" name="timeline" value="exploring" />
+                                        <div class="radio-card">
+                                            <strong>Just exploring</strong>
+                                            <span>Not sure yet, gathering info</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Preferred communication style</label>
+                                <div class="pill-group">
+                                    <label class="pill-label"><input type="checkbox" value="slack"><span class="pill">Slack</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="email"><span class="pill">Email</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="whatsapp"><span class="pill">WhatsApp</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="zoom"><span class="pill">Zoom calls</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="async"><span class="pill">Async only</span></label>
+                                    <label class="pill-label"><input type="checkbox" value="flexible"><span class="pill">Flexible / Your call</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-nav">
+                            <button class="btn-back" onclick="prevStep(3)">← Back</button>
+                            <button class="btn-next" onclick="nextStep(3)">Next: Final Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Final -->
+                    <div class="form-step" id="step4">
+                        <div class="step-title">Anything Else?</div>
+                        <div class="step-subtitle">Last step — give me a little more context so I can come prepared.</div>
+                        <div class="field-group">
+                            <div class="field">
+                                <label>Describe your current situation in your own words <span class="req">*</span></label>
+                                <textarea id="situation" placeholder="E.g. I run an online coaching business. My inbox is out of control, I'm missing follow-ups, and I have no systems. I need someone reliable to take the reins…"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>What does success look like for you 3 months from now?</label>
+                                <textarea id="successVision" placeholder="E.g. Inbox at zero, projects on track, and I'm only doing CEO-level work…" style="min-height:80px;"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Have you worked with a VA before?</label>
+                                <select id="vaExperience">
+                                    <option value="">Select one…</option>
+                                    <option>No – this would be my first time</option>
+                                    <option>Yes – it worked well</option>
+                                    <option>Yes – it didn't work out</option>
+                                    <option>Yes – mixed experience</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>How did you find me? <span style="color:var(--gray);font-weight:400;">(optional)</span></label>
+                                <select id="referral">
+                                    <option value="">Select one…</option>
+                                    <option>Google search</option>
+                                    <option>LinkedIn</option>
+                                    <option>Instagram</option>
+                                    <option>Referral from someone I know</option>
+                                    <option>Upwork / Freelance platform</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-nav">
+                            <button class="btn-back" onclick="prevStep(4)">← Back</button>
+                            <button class="btn-submit" onclick="submitForm()">
+                                Submit & Request Call ✓
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Success -->
+                    <div class="form-success" id="formSuccess">
+                        <div class="success-icon">🎉</div>
+                        <h3>You're in the queue!</h3>
+                        <p>Thanks for filling this out. I'll review your answers and personally follow up within <strong>24 hours</strong> to schedule your free strategy call.</p>
+                    </div>
+
+                </div><!-- /form-body -->
+            </div><!-- /form-card -->
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="contact-inner">
+            <div class="contact-badge reveal">Let's Work Together</div>
+            <h2 class="reveal delay-1">Ready to Get Your<br><em>Time Back?</em></h2>
+            <p class="reveal delay-2">Let's talk about what your business actually needs. Start with a free trial week — no commitment, no risk, just results.</p>
+
+            <div class="contact-cta-row reveal delay-3">
+                <a href="#assessment" class="btn-gold-lg">Start My Free Trial Week →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Juliene Amarille — Virtual Assistant <span>·</span> Philippines <span>·</span> Built to convert.</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ── Scroll reveal ──
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ── Nav glass on scroll ──
+        const nav = document.getElementById('mainNav');
+        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 50);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // ── Animated number counters ──
+        const numEls = document.querySelectorAll('.stat-num[data-count]');
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const el = e.target;
+                const target = parseInt(el.dataset.count);
+                const suffix = el.dataset.suffix || '';
+                let start = null;
+                const dur = 1400;
+                const step = ts => {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / dur, 1);
+                    const ease = 1 - Math.pow(1 - p, 3);
+                    el.textContent = Math.round(ease * target) + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+                countObserver.unobserve(el);
+            });
+        }, { threshold: 0.6 });
+
+        numEls.forEach(el => countObserver.observe(el));
+
+        // ── Multi-step form ──
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress(step) {
+            document.getElementById('stepNum').textContent = step;
+            for (let i = 1; i <= totalSteps; i++) {
+                const ps = document.getElementById('ps' + i);
+                ps.classList.remove('active', 'done');
+                if (i < step) ps.classList.add('done');
+                if (i === step) ps.classList.add('active');
+            }
+        }
+
+        function nextStep(from) {
+            // Basic validation for step 1
+            if (from === 1) {
+                const fn = document.getElementById('firstName').value.trim();
+                const em = document.getElementById('email').value.trim();
+                if (!fn || !em) { shakeField(!fn ? 'firstName' : 'email'); return; }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { shakeField('email'); return; }
+            }
+            if (from === 4) return;
+            document.getElementById('step' + from).classList.remove('active');
+            currentStep = from + 1;
+            document.getElementById('step' + currentStep).classList.add('active');
+            updateProgress(currentStep);
+        }
+
+        function prevStep(from) {
+            document.getElementById('step' + from).classList.remove('active');
+            currentStep = from - 1;
+            document.getElementById('step' + currentStep).classList.add('active');
+            updateProgress(currentStep);
+        }
+
+        function shakeField(id) {
+            const el = document.getElementById(id);
+            el.style.borderColor = '#e53e3e';
+            el.style.animation = 'shake 0.4s ease';
+            el.addEventListener('animationend', () => el.style.animation = '', { once: true });
+            el.focus();
+        }
+
+        function updateRange(input, valId, fmt) {
+            const v = parseInt(input.value);
+            document.getElementById(valId).textContent = fmt(v);
+            const pct = ((v - input.min) / (input.max - input.min)) * 100;
+            input.style.background = `linear-gradient(to right, var(--gold) ${pct}%, rgba(0,0,0,0.1) ${pct}%)`;
+        }
+
+        function submitForm() {
+            const sit = document.getElementById('situation').value.trim();
+            if (!sit) { shakeField('situation'); return; }
+
+            // Collect all form data
+            const fn       = document.getElementById('firstName').value.trim();
+            const ln       = document.getElementById('lastName').value.trim();
+            const em       = document.getElementById('email').value.trim();
+            const biz      = document.getElementById('bizName').value.trim();
+            const ind      = document.getElementById('industry').value;
+            const web      = document.getElementById('website').value.trim();
+            const pkg      = document.getElementById('package').value;
+            const vaEx     = document.getElementById('vaExperience').value;
+            const ref      = document.getElementById('referral').value;
+            const succ     = document.getElementById('successVision').value.trim();
+            const pains    = [...document.querySelectorAll('#step2 input[type=checkbox]:checked')].map(c => c.value).join(', ');
+            const comms    = [...document.querySelectorAll('#step3 input[type=checkbox]:checked')].map(c => c.value).join(', ');
+            const teamSize = document.querySelector('input[name="teamSize"]:checked')?.value || 'N/A';
+            const timeline = document.querySelector('input[name="timeline"]:checked')?.value || 'N/A';
+            const hours    = document.getElementById('hoursLost').value;
+
+            const message =
+`── ABOUT ──
+Name: ${fn} ${ln}
+Email: ${em}
+Business: ${biz || 'N/A'}
+Industry: ${ind || 'N/A'}
+Website: ${web || 'N/A'}
+
+── BUSINESS SITUATION ──
+Team size: ${teamSize}
+Pain points: ${pains || 'N/A'}
+Hours lost per week: ${hours} hrs
+
+── WHAT THEY NEED ──
+Package interest: ${pkg || 'N/A'}
+Timeline: ${timeline}
+Communication style: ${comms || 'N/A'}
+
+── DETAILS ──
+Current situation:
+${sit}
+
+Success vision:
+${succ || 'N/A'}
+
+VA experience: ${vaEx || 'N/A'}
+How they found you: ${ref || 'N/A'}`;
+
+            // Disable button to prevent double submit
+            const btn = document.querySelector('.btn-submit');
+            btn.textContent = 'Sending…';
+            btn.disabled = true;
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: '15471e43-58bb-4e72-bd48-18327a5b6b54',
+                    subject: `New Client Inquiry — ${fn} ${ln}`,
+                    from_name: `${fn} ${ln}`,
+                    replyto: em,
+                    message: message
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success state
+                    document.getElementById('step4').classList.remove('active');
+                    document.getElementById('formSuccess').style.display = 'block';
+                    for (let i = 1; i <= 4; i++) {
+                        const ps = document.getElementById('ps' + i);
+                        ps.classList.remove('active');
+                        ps.classList.add('done');
+                    }
+                    document.getElementById('stepNum').textContent = '✓';
+                } else {
+                    btn.textContent = 'Submit & Request Call ✓';
+                    btn.disabled = false;
+                    alert('Something went wrong. Please try again or email me directly at julieneamarille.work@gmail.com');
+                }
+            })
+            .catch(() => {
+                btn.textContent = 'Submit & Request Call ✓';
+                btn.disabled = false;
+                alert('Something went wrong. Please try again or email me directly at julieneamarille.work@gmail.com');
+            });
+        }
+
+        // ── Accordion for service cards ──
+        function toggleAccordion(labelEl) {
+            const group = labelEl.closest('.task-group');
+            group.classList.toggle('open');
+        }
+
+        // Shake keyframe (injected via JS)
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }`;
+        document.head.appendChild(shakeStyle);
+
+        // ── Animated Background Canvas ──
+        (function() {
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let W, H, blobs = [], particles = [], rings = [], triangles = [];
+
+            // Brand palette with strong opacity
+            const BLOB_COLORS = [
+                [201,168,76],   // gold
+                [61,90,71],     // sage
+                [240,216,144],  // gold-light
+                [156,200,180],  // mint-sage
+                [230,190,80],   // warm gold
+                [80,120,95],    // deep sage
+            ];
+
+            function resize() {
+                W = canvas.width  = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            // ── Large organic blobs ──
+            class Blob {
+                constructor(init) {
+                    this.init = init;
+                    this.reset(true);
+                }
+                reset(init) {
+                    this.x  = Math.random() * W;
+                    this.y  = init ? Math.random() * H : (Math.random() < 0.5 ? -300 : H + 300);
+                    this.r  = 150 + Math.random() * 320;
+                    this.vx = (Math.random() - 0.5) * 0.55;
+                    this.vy = (Math.random() - 0.5) * 0.55;
+                    const c = BLOB_COLORS[Math.floor(Math.random() * BLOB_COLORS.length)];
+                    this.r1 = c[0]; this.g1 = c[1]; this.b1 = c[2];
+                    this.alpha = 0.13 + Math.random() * 0.18;
+                    this.wobble = Math.random() * Math.PI * 2;
+                    this.wobbleSpeed = 0.004 + Math.random() * 0.006;
+                    this.wobbleAmt = 25 + Math.random() * 55;
+                    this.pts = 7 + Math.floor(Math.random() * 4);
+                    this.rotSpeed = (Math.random() - 0.5) * 0.003;
+                    this.rot = Math.random() * Math.PI * 2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.wobble += this.wobbleSpeed;
+                    this.rot += this.rotSpeed;
+                    if (this.x < -this.r*2.5 || this.x > W+this.r*2.5 ||
+                        this.y < -this.r*2.5 || this.y > H+this.r*2.5) {
+                        this.reset(false);
+                    }
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rot);
+                    ctx.beginPath();
+                    for (let i = 0; i <= this.pts; i++) {
+                        const angle = (i / this.pts) * Math.PI * 2;
+                        const w = this.r + Math.sin(this.wobble + i * 1.7) * this.wobbleAmt
+                                        + Math.cos(this.wobble * 0.7 + i * 0.9) * (this.wobbleAmt * 0.5);
+                        const px = Math.cos(angle) * w;
+                        const py = Math.sin(angle) * w;
+                        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                    }
+                    ctx.closePath();
+                    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.r + this.wobbleAmt);
+                    grad.addColorStop(0,   `rgba(${this.r1},${this.g1},${this.b1},${this.alpha})`);
+                    grad.addColorStop(0.5, `rgba(${this.r1},${this.g1},${this.b1},${this.alpha * 0.5})`);
+                    grad.addColorStop(1,   `rgba(${this.r1},${this.g1},${this.b1},0)`);
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // ── Glowing floating dots ──
+            class Particle {
+                constructor(init) { this.reset(init); }
+                reset(init) {
+                    this.x     = Math.random() * W;
+                    this.y     = init ? Math.random() * H : H + 15;
+                    this.r     = 1.5 + Math.random() * 4;
+                    this.speed = 0.25 + Math.random() * 0.7;
+                    this.vx    = (Math.random() - 0.5) * 0.5;
+                    this.alpha = 0.25 + Math.random() * 0.45;
+                    const c = BLOB_COLORS[Math.floor(Math.random() * 4)];
+                    this.cr = c[0]; this.cg = c[1]; this.cb = c[2];
+                    this.pulse = Math.random() * Math.PI * 2;
+                    this.pulseSpeed = 0.015 + Math.random() * 0.025;
+                    this.glow = Math.random() > 0.5;
+                }
+                update() {
+                    this.y -= this.speed;
+                    this.x += this.vx;
+                    this.pulse += this.pulseSpeed;
+                    if (this.y < -20) this.reset(false);
+                }
+                draw() {
+                    const a = this.alpha * (0.6 + 0.4 * Math.sin(this.pulse));
+                    if (this.glow) {
+                        // glow halo
+                        const halo = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 4);
+                        halo.addColorStop(0, `rgba(${this.cr},${this.cg},${this.cb},${a * 0.6})`);
+                        halo.addColorStop(1, `rgba(${this.cr},${this.cg},${this.cb},0)`);
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.r * 4, 0, Math.PI * 2);
+                        ctx.fillStyle = halo;
+                        ctx.fill();
+                    }
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.cr},${this.cg},${this.cb},${a})`;
+                    ctx.fill();
+                }
+            }
+
+            // ── Rotating rings ──
+            class Ring {
+                constructor(init) { this.reset(init); }
+                reset(init) {
+                    this.x     = Math.random() * W;
+                    this.y     = init ? Math.random() * H : H + 100;
+                    this.r     = 30 + Math.random() * 90;
+                    this.thick = 0.5 + Math.random() * 2;
+                    this.rot   = Math.random() * Math.PI * 2;
+                    this.rotSpeed = (Math.random() - 0.5) * 0.012;
+                    this.vy    = -(0.12 + Math.random() * 0.25);
+                    this.vx    = (Math.random() - 0.5) * 0.18;
+                    const c = BLOB_COLORS[Math.floor(Math.random() * BLOB_COLORS.length)];
+                    this.cr = c[0]; this.cg = c[1]; this.cb = c[2];
+                    this.alpha = 0.1 + Math.random() * 0.2;
+                    this.dash  = [4 + Math.random() * 12, 3 + Math.random() * 8];
+                }
+                update() {
+                    this.y   += this.vy;
+                    this.x   += this.vx;
+                    this.rot += this.rotSpeed;
+                    if (this.y < -this.r * 2) this.reset(false);
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rot);
+                    ctx.setLineDash(this.dash);
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.r, this.r * (0.5 + Math.random() * 0.5), 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${this.cr},${this.cg},${this.cb},${this.alpha})`;
+                    ctx.lineWidth = this.thick;
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.restore();
+                }
+            }
+
+            // ── Drifting triangles / polygons ──
+            class Shape {
+                constructor(init) { this.reset(init); }
+                reset(init) {
+                    this.x     = Math.random() * W;
+                    this.y     = init ? Math.random() * H : H + 50;
+                    this.size  = 8 + Math.random() * 28;
+                    this.sides = [3,4,6][Math.floor(Math.random()*3)];
+                    this.rot   = Math.random() * Math.PI * 2;
+                    this.rotSpeed = (Math.random() - 0.5) * 0.018;
+                    this.vy    = -(0.18 + Math.random() * 0.38);
+                    this.vx    = (Math.random() - 0.5) * 0.3;
+                    const c = BLOB_COLORS[Math.floor(Math.random() * BLOB_COLORS.length)];
+                    this.cr = c[0]; this.cg = c[1]; this.cb = c[2];
+                    this.alpha = 0.08 + Math.random() * 0.16;
+                    this.filled = Math.random() > 0.4;
+                }
+                update() {
+                    this.y   += this.vy;
+                    this.x   += this.vx;
+                    this.rot += this.rotSpeed;
+                    if (this.y < -this.size * 3) this.reset(false);
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rot);
+                    ctx.beginPath();
+                    for (let i = 0; i < this.sides; i++) {
+                        const a = (i / this.sides) * Math.PI * 2 - Math.PI / 2;
+                        const px = Math.cos(a) * this.size;
+                        const py = Math.sin(a) * this.size;
+                        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                    }
+                    ctx.closePath();
+                    const color = `rgba(${this.cr},${this.cg},${this.cb},${this.alpha})`;
+                    if (this.filled) {
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    } else {
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                    ctx.restore();
+                }
+            }
+
+            function init() {
+                resize();
+                blobs     = Array.from({ length: 16 }, (_, i) => new Blob(true));
+                particles = Array.from({ length: 70 }, (_, i) => new Particle(true));
+                rings     = Array.from({ length: 22 }, (_, i) => new Ring(true));
+                triangles = Array.from({ length: 35 }, (_, i) => new Shape(true));
+            }
+
+            function frame() {
+                ctx.clearRect(0, 0, W, H);
+                blobs.forEach(b     => { b.update(); b.draw(); });
+                rings.forEach(r     => { r.update(); r.draw(); });
+                triangles.forEach(t => { t.update(); t.draw(); });
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(frame);
+            }
+
+            window.addEventListener('resize', resize);
+            init();
+            frame();
+        })();
+
+        // ── Parallax on orbs (subtle) ──
+        window.addEventListener('mousemove', e => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.querySelectorAll('.orb').forEach((orb, i) => {
+                const depth = (i + 1) * 0.4;
+                orb.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+            });
+        }, { passive: true });
+    </script>
+</body>
+</html>
