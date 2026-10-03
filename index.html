@@ -104,13 +104,21 @@ footer a{display:block;text-decoration:none;padding:3px 0}footer a:hover{color:#
 @media(max-width:900px){.hg,.two,.pg,.cards,.work,.qs,.how,.cg,.fg{grid-template-columns:1fr}.links a:not(.btn){display:none}.bar{display:none}section{padding:56px 0}.vis{max-width:320px}.pop{margin-top:26px}.cta2 h2{font-size:1.6rem}}
 @media(max-width:520px){form{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.up,.rv{opacity:1;transform:none}}
+.ab{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.abp{position:relative;max-width:380px;width:100%;margin:0 auto}
+.abp::before{content:"";position:absolute;inset:18px -18px -18px 18px;background:var(--yel);border-radius:24px}
+.abp img{position:relative;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;border-radius:24px;display:block}
+.ab p{color:var(--muted)}
+.abc{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.abc span{background:var(--sky);border-radius:999px;padding:8px 16px;font-size:.88rem;font-weight:700}
+@media(max-width:900px){.ab{grid-template-columns:1fr;gap:40px}}
 </style>
 </head>
 <body>
 <div class="bar"><div class="wrap"><span>Let's create something amazing!</span><span>[hello@yourdomain.com]</span><span>Mon to Fri, [9AM to 6PM] GMT+8</span><span>Philippines</span></div></div>
 <header><div class="wrap"><nav>
 <a class="logo" href="#top"><b>Juliene</b><small>VIRTUAL ASSISTANT</small></a>
-<div class="links"><a href="#top">Home</a><a href="#work">Work</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#process">Process</a><a class="btn y" href="#contact">Let's Connect</a></div>
+<div class="links"><a href="#top">Home</a><a href="#about">About</a><a href="#work">Work</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#process">Process</a><a class="btn y" href="#contact">Let's Connect</a></div>
 </nav></div></header>
 
 <main id="top">
@@ -129,6 +137,14 @@ footer a{display:block;text-decoration:none;padding:3px 0}footer a:hover{color:#
 </div>
 </div></section>
 
+<section id="about"><div class="wrap ab">
+<div class="abp rv"><img src="photo.jpeg" alt="Juliene Amarille, virtual assistant"></div>
+<div class="rv"><p class="eb">About me</p><h2>Hi, I'm Juliene</h2>
+<p style="margin-top:14px">[Write 2 to 3 friendly sentences: your background, the kind of clients you love working with, and what makes you different.]</p>
+<p style="margin-top:12px">You work directly with me, with no account managers or handoffs. [Add a commitment, e.g. "I reply within 4 business hours."]</p>
+<div class="abc"><span>Philippines, GMT+8</span><span>25+ tools mastered</span><span>Free 1-week trial</span><span>100% remote</span></div>
+<a class="btn" href="#contact">Work With Me</a></div>
+</div></section>
 <section id="work"><div class="wrap two">
 <div class="l rv"><p class="eb">Selected work</p><h2>A few recent favorites</h2><p>Every client is unique. Here are a few results I'm proud of. [Edit]</p><a class="btn g" href="#contact">Work With Me</a></div>
 <div class="work">
